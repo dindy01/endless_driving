@@ -1,7 +1,6 @@
 package com.endlessdrive.core
 
 import com.endlessdrive.core.fx.ParticleSystem
-import java.util.concurrent.atomic.AtomicInteger
 
 object Mode {
     const val ATTRACT = 0
@@ -55,23 +54,55 @@ class GameSession(var listener: SessionListener? = null) : GameEvents {
     var envTime = 0f; private set
     var crashSpin = 0f; private set
 
-    private val cmd = AtomicInteger(CMD_NONE)
-    @Volatile private var cmdSeed = 0L
+    // Ordered command queue (UI thread -> game thread). Fixed size, no allocation.
+    private val cmdQueue = IntArray(16)
+    private val seedQueue = LongArray(16)
+    private var cmdHead = 0
+    private var cmdCount = 0
+    private val lock = Any()
+
+    private fun post(c: Int, seed: Long = 0L) {
+        synchronized(lock) {
+            if (cmdCount == cmdQueue.size) { // drop oldest
+                cmdHead = (cmdHead + 1) % cmdQueue.size
+                cmdCount--
+            }
+            val i = (cmdHead + cmdCount) % cmdQueue.size
+            cmdQueue[i] = c
+            seedQueue[i] = seed
+            cmdCount++
+        }
+    }
 
     init {
         world.demo = true
     }
 
-    fun requestStart(seed: Long) { cmdSeed = seed; cmd.set(CMD_START) }
-    fun requestPause() { cmd.compareAndSet(CMD_NONE, CMD_PAUSE) }
-    fun requestResume() { cmd.set(CMD_RESUME) }
-    fun requestRevive() { cmd.set(CMD_REVIVE) }
-    fun requestAttract() { cmd.set(CMD_ATTRACT) }
+    fun requestStart(seed: Long) = post(CMD_START, seed)
+    fun requestPause() = post(CMD_PAUSE)
+    fun requestResume() = post(CMD_RESUME)
+    fun requestRevive() = post(CMD_REVIVE)
+    fun requestAttract() = post(CMD_ATTRACT, 0x2545F4914F6CDD1DL)
 
     /** Called once per rendered frame on the game thread. */
     fun frame(realDtIn: Float) {
         val realDt = realDtIn.coerceIn(0f, 0.05f)
-        applyCommand()
+        while (true) {
+            var c: Int
+            var seed: Long
+            synchronized(lock) {
+                if (cmdCount == 0) {
+                    c = CMD_NONE; seed = 0L
+                } else {
+                    c = cmdQueue[cmdHead]; seed = seedQueue[cmdHead]
+                    cmdHead = (cmdHead + 1) % cmdQueue.size
+                    cmdCount--
+                }
+            }
+            if (c == CMD_NONE) break
+            applyCommand(c, seed)
+        }
+        hud.mode = mode
         when (mode) {
             Mode.ATTRACT -> {
                 envTime += realDt
@@ -99,11 +130,11 @@ class GameSession(var listener: SessionListener? = null) : GameEvents {
         writeHud()
     }
 
-    private fun applyCommand() {
-        when (cmd.getAndSet(CMD_NONE)) {
+    private fun applyCommand(c: Int, seed: Long) {
+        when (c) {
             CMD_START -> {
                 world.demo = false
-                world.reset(cmdSeed)
+                world.reset(seed)
                 fx.clear()
                 crashTimer = 0f
                 shake = 0f
@@ -123,12 +154,11 @@ class GameSession(var listener: SessionListener? = null) : GameEvents {
             }
             CMD_ATTRACT -> {
                 world.demo = true
-                world.reset(cmdSeed xor 0x5DEECE66DL)
+                world.reset(seed)
                 fx.clear()
                 mode = Mode.ATTRACT
             }
         }
-        hud.mode = mode
     }
 
     private fun writeHud() {

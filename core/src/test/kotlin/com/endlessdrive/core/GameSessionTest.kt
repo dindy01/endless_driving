@@ -52,4 +52,16 @@ class GameSessionTest {
         assertTrue("retry took $ms ms", ms < 100)
         assertEquals(Mode.PLAYING, s.mode)
     }
+
+    @Test
+    fun commandsSentBetweenFramesAreAllAppliedInOrder() {
+        val s = GameSession()
+        s.requestStart(1)
+        s.requestPause() // both before the game thread runs a frame
+        frames(s, 1)
+        assertEquals(Mode.PAUSED, s.mode)
+        s.requestResume(); s.requestPause(); s.requestResume()
+        frames(s, 1)
+        assertEquals(Mode.PLAYING, s.mode)
+    }
 }

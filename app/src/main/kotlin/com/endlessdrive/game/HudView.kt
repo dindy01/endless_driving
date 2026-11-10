@@ -196,7 +196,7 @@ class HudView @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
             big.textSize = 30f * sp
             big.color = 0xFFFFD54A.toInt()
             buf[0] = 'x'
-            n = 1 + formatNumber(h.combo.toLong(), buf, false, 1)
+            n = formatNumber(h.combo.toLong(), buf, false, 1)
             c.drawText(buf, 0, n, width / 2f, top + 30f * sp, big)
             small.textAlign = Paint.Align.CENTER
             small.color = 0xFFFFE082.toInt()
