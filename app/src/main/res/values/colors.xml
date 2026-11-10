@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#FF101318</color>
+    <color name="panel">#E6161B24</color>
+    <color name="panel_stroke">#33FFFFFF</color>
+    <color name="accent">#FFFF7A1A</color>
+    <color name="accent_dark">#FFE0560B</color>
+    <color name="accent_light">#FFFFA24D</color>
+    <color name="reward">#FF2EC4B6</color>
+    <color name="reward_dark">#FF1A9C90</color>
+    <color name="secondary">#FF2A3140</color>
+    <color name="secondary_pressed">#FF3A4458</color>
+    <color name="text">#FFF5F7FA</color>
+    <color name="text_dim">#B3F5F7FA</color>
+    <color name="gold">#FFFFD54A</color>
+    <color name="scrim">#99000000</color>
+    <color name="launcher_bg_green">#FF2E7D32</color>
+</resources>

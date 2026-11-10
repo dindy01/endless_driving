@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <com.endlessdrive.game.GameSurfaceView
+        android:id="@+id/gameView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.endlessdrive.game.HudView
+        android:id="@+id/hud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scrim"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/uiLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <ImageButton
+            android:id="@+id/btnPause"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="12dp"
+            android:background="@drawable/pause_bg"
+            android:contentDescription="@string/pause"
+            android:src="@drawable/ic_pause"
+            android:visibility="gone" />
+
+        <!-- Main menu (landscape: title left, actions right) -->
+        <LinearLayout
+            android:id="@+id/panelMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:letterSpacing="0.15"
+                    android:shadowColor="#CC000000"
+                    android:shadowDy="6"
+                    android:shadowRadius="14"
+                    android:text="@string/title_line1"
+                    android:textColor="@color/text"
+                    android:textSize="54sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-16dp"
+                    android:fontFamily="sans-serif-black"
+                    android:letterSpacing="0.42"
+                    android:shadowColor="#CC000000"
+                    android:shadowDy="6"
+                    android:shadowRadius="14"
+                    android:text="@string/title_line2"
+                    android:textColor="@color/accent"
+                    android:textSize="54sp" />
+
+                <TextView
+                    android:id="@+id/txtMenuBest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:shadowColor="#CC000000"
+                    android:shadowDy="3"
+                    android:shadowRadius="6"
+                    android:textColor="@color/gold"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:shadowColor="#CC000000"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:text="@string/hint_controls"
+                    android:textColor="@color/text_dim"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnPlay"
+                    style="@style/Btn"
+                    android:layout_height="68dp"
+                    android:text="@string/play"
+                    android:textSize="24sp" />
+
+                <Button
+                    android:id="@+id/btnSettings"
+                    style="@style/Btn.Secondary"
+                    android:text="@string/settings" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Settings: two columns to fit landscape height -->
+        <LinearLayout
+            android:id="@+id/panelSettings"
+            style="@style/Panel"
+            android:layout_width="580dp">
+
+            <TextView style="@style/PanelTitle" android:text="@string/settings" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button android:id="@+id/btnControls" style="@style/Btn.Secondary" />
+                    <Button android:id="@+id/btnQuality" style="@style/Btn.Secondary" />
+                    <Button android:id="@+id/btnPrivacyPolicy" style="@style/Btn.Secondary" android:text="@string/privacy_policy" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button android:id="@+id/btnSound" style="@style/Btn.Secondary" />
+                    <Button android:id="@+id/btnVibration" style="@style/Btn.Secondary" />
+                    <Button android:id="@+id/btnPrivacyOptions" style="@style/Btn.Secondary"
+                        android:text="@string/privacy_options" android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button android:id="@+id/btnSettingsBack" style="@style/Btn" android:layout_width="240dp" android:text="@string/back" />
+        </LinearLayout>
+
+        <!-- Pause -->
+        <LinearLayout
+            android:id="@+id/panelPause"
+            style="@style/Panel">
+
+            <TextView style="@style/PanelTitle" android:text="@string/paused" />
+
+            <Button android:id="@+id/btnResume" style="@style/Btn" android:text="@string/resume" />
+
+            <Button android:id="@+id/btnPauseMenu" style="@style/Btn.Secondary" android:text="@string/menu" />
+        </LinearLayout>
+
+        <!-- Game over (landscape: result left, actions right) -->
+        <LinearLayout
+            android:id="@+id/panelGameOver"
+            style="@style/Panel"
+            android:layout_width="580dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView style="@style/PanelTitle" android:text="@string/crashed" android:textColor="@color/accent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/score"
+                    android:textAllCaps="true"
+                    android:textColor="@color/text_dim"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/txtScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/text"
+                    android:textSize="46sp" />
+
+                <TextView
+                    android:id="@+id/txtNewBest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/new_best"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gold"
+                    android:textSize="17sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtBest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtRunStats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textColor="@color/text_dim"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <Button android:id="@+id/btnContinue" style="@style/Btn.Reward"
+                    android:text="@string/continue_ad" android:visibility="gone" />
+
+                <Button android:id="@+id/btnRetry" style="@style/Btn" android:text="@string/retry" />
+
+                <Button android:id="@+id/btnGameOverMenu" style="@style/Btn.Secondary" android:text="@string/menu" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
