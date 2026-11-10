@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Endless Drive</string>
+    <string name="title_line1">ENDLESS</string>
+    <string name="title_line2">DRIVE</string>
+    <string name="play">Play</string>
+    <string name="settings">Settings</string>
+    <string name="best_fmt">Best %1$s</string>
+    <string name="hint_controls">Tap left / right or swipe to change lanes</string>
+    <string name="sound_on">Sound: On</string>
+    <string name="sound_off">Sound: Off</string>
+    <string name="vibration_on">Vibration: On</string>
+    <string name="vibration_off">Vibration: Off</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="privacy_options">Ad privacy options</string>
+    <string name="back">Back</string>
+    <string name="paused">Paused</string>
+    <string name="resume">Resume</string>
+    <string name="menu">Menu</string>
+    <string name="crashed">Crashed!</string>
+    <string name="score">Score</string>
+    <string name="new_best">New best!</string>
+    <string name="retry">Retry</string>
+    <string name="continue_ad">Continue (watch ad)</string>
+    <string name="pause">Pause</string>
+    <string name="run_stats_fmt">%1$d coins · %2$d near misses</string>
+    <string name="no_browser">No browser available</string>
+</resources>
