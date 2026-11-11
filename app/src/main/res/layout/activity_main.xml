@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <com.endlessdrive.game.GameSurface
+        android:id="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.endlessdrive.game.HudView
+        android:id="@+id/hud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scrim"
+        android:visibility="gone" />
+
+    <!-- Main menu: floats over the live attract-mode scene -->
+    <LinearLayout
+        android:id="@+id/panelMenu"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="48dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.1"
+            android:shadowColor="#C0000000"
+            android:shadowDy="4"
+            android:shadowRadius="10"
+            android:text="@string/title"
+            android:textColor="@color/text"
+            android:textSize="34sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="#C0000000"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:text="@string/tagline"
+            android:textColor="@color/text_dim"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtMenuBest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-black"
+            android:shadowColor="#C0000000"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:textColor="@color/gold"
+            android:textSize="20sp" />
+
+        <Button android:id="@+id/btnPlay" style="@style/Btn" android:layout_height="60dp"
+            android:layout_marginTop="16dp" android:text="@string/play" android:textSize="22sp" />
+
+        <Button android:id="@+id/btnSettings" style="@style/Btn.Secondary" android:text="@string/settings" />
+    </LinearLayout>
+
+    <!-- Settings -->
+    <LinearLayout
+        android:id="@+id/panelSettings"
+        style="@style/Panel"
+        android:layout_width="460dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView style="@style/Title" android:text="@string/settings" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/btnControl" style="@style/Btn.Half" />
+            <Button android:id="@+id/btnQuality" style="@style/Btn.Half" />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/btnSound" style="@style/Btn.Half" />
+            <Button android:id="@+id/btnVibration" style="@style/Btn.Half" />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/btnPrivacy" style="@style/Btn.Half" android:text="@string/privacy_policy" />
+            <Button android:id="@+id/btnAdPrivacy" style="@style/Btn.Half" android:text="@string/ad_privacy" android:visibility="gone" />
+        </LinearLayout>
+
+        <Button android:id="@+id/btnBack" style="@style/Btn" android:layout_marginStart="4dp" android:layout_marginEnd="4dp" android:text="@string/back" />
+    </LinearLayout>
+
+    <!-- Pause -->
+    <LinearLayout
+        android:id="@+id/panelPause"
+        style="@style/Panel"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView style="@style/Title" android:text="@string/paused" />
+        <Button android:id="@+id/btnResume" style="@style/Btn" android:text="@string/resume" />
+        <Button android:id="@+id/btnQuit" style="@style/Btn.Secondary" android:text="@string/menu" />
+    </LinearLayout>
+
+    <!-- Game over -->
+    <LinearLayout
+        android:id="@+id/panelOver"
+        style="@style/Panel"
+        android:layout_width="520dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView style="@style/Title" android:text="@string/crashed" android:textColor="@color/accent" />
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:text="@string/score" android:textAllCaps="true"
+                android:textColor="@color/text_dim" android:textSize="12sp" />
+
+            <TextView android:id="@+id/txtScore" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black" android:textColor="@color/text" android:textSize="44sp" />
+
+            <TextView android:id="@+id/txtNewBest" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black" android:text="@string/new_best" android:textAllCaps="true"
+                android:textColor="@color/gold" android:textSize="16sp" android:visibility="gone" />
+
+            <TextView android:id="@+id/txtBest" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/gold" android:textSize="16sp" />
+
+            <TextView android:id="@+id/txtStats" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:gravity="center" android:textColor="@color/text_dim" android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <Button android:id="@+id/btnContinue" style="@style/Btn.Reward" android:layout_marginTop="0dp"
+                android:text="@string/continue_ad" android:visibility="gone" />
+            <Button android:id="@+id/btnRetry" style="@style/Btn" android:text="@string/retry" />
+            <Button android:id="@+id/btnOverMenu" style="@style/Btn.Secondary" android:text="@string/menu" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
